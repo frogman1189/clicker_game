@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'dart:math';
+import '../math/math.dart';
 
 bool testing = false;
 
@@ -62,8 +63,8 @@ class PlayerState {
   static const upgradeCost = 10;
 
   int get strength => strengthLevel + 1;
-  double get criticalChance => criticalChanceLevel * 0.01 + 0.01;
-  double get criticalPower => criticalPowerLevel * 0.15 + 1.5;
+  double get criticalChance => roundDouble(criticalChanceLevel * 0.01 + 0.01, 2);
+  double get criticalPower => roundDouble(criticalPowerLevel * 0.15 + 1.5, 2);
   
   const PlayerState(
     this.money,
