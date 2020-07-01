@@ -1,9 +1,20 @@
 import 'package:bloc/bloc.dart';
 import 'dart:math';
 
+bool testing = false;
+
 class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
   @override PlayerState get initialState => PlayerState(0, 0, 0, 0);
+  PlayerState _testState;
 
+  
+  void setTestState(PlayerState testState) {
+    if(testing == true) {
+      _testState = testState;
+      add(PlayerEvent.TestStateSet);
+    }
+  }
+  
   @override
   Stream<PlayerState> mapEventToState(PlayerEvent event) async* {
     switch(event) {
@@ -19,6 +30,9 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       case PlayerEvent.CriticalPowerIncremented:
         yield state.incrementCriticalPowerLevel();
         break;
+      case PlayerEvent.TestStateSet:
+        yield _testState;
+        break;
     }
   }
 
@@ -30,7 +44,8 @@ enum PlayerEvent {
   ButtonClicked,
   StrengthIncremented,
   CriticalChanceIncremented,
-  CriticalPowerIncremented
+  CriticalPowerIncremented,
+  TestStateSet
 }
 
 
@@ -110,5 +125,20 @@ class PlayerState {
   @override
   String toString() {
     return "{ money: $money, strength: $strengthLevel, criticalChance: $criticalChanceLevel, criticalPower: $criticalPowerLevel }";
+  }
+
+  @override
+  int get hashCode {
+    return money + (strengthLevel << 8) + (criticalChanceLevel << 16) + (criticalPowerLevel << 24);
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    if(other is! PlayerState) return false;
+    PlayerState p = other;
+    return (p.money == money)
+    && (p.strengthLevel == strengthLevel)
+    && (p.criticalChanceLevel == criticalChanceLevel)
+    && (p.criticalPowerLevel == criticalPowerLevel);
   }
 }
