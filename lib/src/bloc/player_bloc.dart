@@ -44,6 +44,7 @@ class PlayerState {
   final int criticalChanceLevel;
   final int criticalPowerLevel;
   final int money;
+  static const upgradeCost = 10;
 
   int get strength => strengthLevel + 1;
   double get criticalChance => criticalChanceLevel * 0.01 + 0.01;
@@ -56,8 +57,11 @@ class PlayerState {
     this.criticalPowerLevel
   );
 
-  int addMoney(int amount) {
+  int _addMoney(int amount) {
     return max(money + amount, 0);
+  }
+  bool _hasEnoughMoney(int amount) {
+    return money >= amount;
   }
   
   PlayerState click() {
@@ -69,37 +73,42 @@ class PlayerState {
       amount = strength;
     }
     return PlayerState(
-      addMoney(amount),
+      _addMoney(amount),
       strengthLevel,
       criticalChanceLevel,
       criticalPowerLevel
     );
   }
   PlayerState incrementStrengthLevel() {
-    return PlayerState(
-      money,
+    return (_hasEnoughMoney(upgradeCost)) ?
+    PlayerState(
+      money - upgradeCost,
       strengthLevel + 1,
       criticalChanceLevel,
       criticalPowerLevel
-    );
+    ) : this;
   }
   PlayerState incrementCriticalChanceLevel() {
-    return PlayerState(
-      money,
+    return (_hasEnoughMoney(upgradeCost)) ?
+    PlayerState(
+      money - upgradeCost,
       strengthLevel,
       criticalChanceLevel + 1,
       criticalPowerLevel
-    );
+    ) : this;
   }
   PlayerState incrementCriticalPowerLevel() {
-    return PlayerState(
-      money,
+    return (_hasEnoughMoney(upgradeCost)) ?
+    PlayerState(
+      money - upgradeCost,
       strengthLevel,
       criticalChanceLevel,
       criticalPowerLevel + 1
-    );
+    ) : this;
   }
-  //PlayerState click() {
-  //const criticalChance =
-  //}
+  
+  @override
+  String toString() {
+    return "{ money: $money, strength: $strengthLevel, criticalChance: $criticalChanceLevel, criticalPower: $criticalPowerLevel }";
+  }
 }
