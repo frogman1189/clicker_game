@@ -3,5 +3,5 @@ import 'src/app.dart';
 
 
 void main() {
-  runApp(BlocApp());
+  runApp(App());
 }
