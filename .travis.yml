@@ -1,0 +1,11 @@
+language: dart
+
+dist: trusty
+
+install:
+	- pub get
+script:
+	- pub test
+cache:
+	directories:
+		- $HOME/.pub-cache
