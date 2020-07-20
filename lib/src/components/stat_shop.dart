@@ -17,7 +17,7 @@ class StatShop extends StatelessWidget {
                   ),
                   Expanded(
                     child:FlatButton(
-                      child: Text("UPGRADE (-10)"),
+                      child: Text("UPGRADE (-${player.upgradeCost})"),
                       color: Colors.green,
                       onPressed: () => {
                         BlocProvider.of<PlayerBloc>(context)
@@ -34,7 +34,7 @@ class StatShop extends StatelessWidget {
                   ),
                   Expanded(
                     child:FlatButton(
-                      child: Text("UPGRADE (-10)"),
+                      child: Text("UPGRADE (-${player.upgradeCost})"),
                       color: Colors.green,
                       onPressed: () => {
                         BlocProvider.of<PlayerBloc>(context)
@@ -51,7 +51,7 @@ class StatShop extends StatelessWidget {
                   ),
                   Expanded(
                     child: FlatButton(
-                      child: Text("UPGRADE (-10)"),
+                      child: Text("UPGRADE (-${player.upgradeCost})"),
                       color: Colors.green,
                       onPressed: () => {
                         BlocProvider.of<PlayerBloc>(context)
