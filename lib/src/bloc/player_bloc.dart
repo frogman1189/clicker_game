@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'dart:math';
 import '../math/math.dart';
-import '../errors/not_in_test_error.dart';
 
 bool testing = false;
 
@@ -14,8 +13,6 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     if(testing == true) {
       _testState = testState;
       add(PlayerEvent.TestStateSet);
-    } else {
-      throw NotInTestError();
     }
   }
   
@@ -63,9 +60,8 @@ class PlayerState {
   final int criticalChanceLevel;
   final int criticalPowerLevel;
   final int money;
-  //static const upgradeCost = 10;
+  static const upgradeCost = 10;
 
-  int get upgradeCost => (strengthLevel + criticalChanceLevel + criticalPowerLevel + 1) * 3;
   int get strength => strengthLevel + 1;
   double get criticalChance => roundDouble(criticalChanceLevel * 0.01 + 0.01, 2);
   double get criticalPower => roundDouble(criticalPowerLevel * 0.15 + 1.5, 2);
